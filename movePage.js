@@ -25,7 +25,7 @@ top.document.onkeydown = keyCheck;
 
 /* 마우스 클릭시 tag 가져옴 */
 top.document.addEventListener('mousedown', (event) =>{
-    console.log(event.target.outer);
+    // console.log(event.target.outer);
     var tagName = event.target.tagName;
     if(tagName == "TEXTAREA" || tagName == "INPUT"){
         // console.log("글쓰는 중");

@@ -1,6 +1,6 @@
 {
 	"name": "ChimTility",
-	"description": "침하하를 더 편하게 사용하고 싶어!",
+	"description": "침하하를 더 편하게 이용하고 싶어!",
 	"version": "1.0",
 	"manifest_version": 3,
 	"content_scripts": [
