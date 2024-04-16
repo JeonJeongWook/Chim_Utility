@@ -49,9 +49,10 @@ function keyCheck() {
         let title = document.querySelector('div.titleContainer')
         if(title != null) title.scrollIntoView()
     }
-    //x키 => 댓글창 이동
+    //x키 => 댓글창 이동, 침하하 컨테이너 이동
     else if(keyValue == 88) {
-        let comment = document.querySelector('div.commentsTitle')
+        //let comment = document.querySelector('div.commentsTitle')
+        let comment = document.querySelector('div.likeContainer')
         if(comment != null) comment.scrollIntoView()
     }
     //c키 => 글 목록
@@ -76,7 +77,6 @@ function keyCheck() {
     //f키 => 침흑흑
     else if(keyValue == 70) {
         let chimhkhk = document.querySelector('button#disLike')
-
         if(chimhkhk != null) {
             if(chimhkhk.innerHTML.indexOf("취소") > 0) {
                 chimhkhk.click()
@@ -90,7 +90,15 @@ function keyCheck() {
     //q키 => 스크랩
     else if(keyValue == 81) {
         let chimscrap = document.querySelector('button#scrap')
-        if(chimscrap != null) chimscrap.click()
+        if(chimscrap != null) {
+            if(chimscrap.innerHTML.indexOf("취소") < 0) {
+                chimscrap.click()
+            } else {
+                if(confirm("정말 침하하 취소 하시겠습니까?")) {
+                    chimscrap.click()
+                }
+            }
+        }
     }
     else {
         return;
