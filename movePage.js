@@ -47,17 +47,50 @@ function keyCheck() {
     //z키 => 게시글 제목 이동
     else if(keyValue == 90) {
         let title = document.querySelector('div.titleContainer')
-        title.scrollIntoView()
+        if(title != null) title.scrollIntoView()
     }
     //x키 => 댓글창 이동
     else if(keyValue == 88) {
         let comment = document.querySelector('div.commentsTitle')
-        comment.scrollIntoView()
+        if(comment != null) comment.scrollIntoView()
     }
     //c키 => 글 목록
     else if(keyValue == 67) {
         let board = document.querySelector('h2.bottomBoardListHeader')
-        board.scrollIntoView()
+        if(board != null) board.scrollIntoView()
+    }
+
+    //r키 => 침하하
+    else if(keyValue == 82) {
+        let chimhaha = document.querySelector('button#like')
+        if(chimhaha != null) {
+            if(chimhaha.innerHTML.indexOf("취소") < 0) {
+                chimhaha.click()
+            } else {
+                if(confirm("정말 침하하 취소 하시겠습니까?")) {
+                    chimhaha.click()
+                }
+            }
+        }
+    }
+    //f키 => 침흑흑
+    else if(keyValue == 70) {
+        let chimhkhk = document.querySelector('button#disLike')
+
+        if(chimhkhk != null) {
+            if(chimhkhk.innerHTML.indexOf("취소") > 0) {
+                chimhkhk.click()
+            } else {
+                if(confirm("정말 침흑흑 하시겠습니까?")) {
+                    chimhkhk.click()
+                }
+            }
+        }
+    }
+    //q키 => 스크랩
+    else if(keyValue == 81) {
+        let chimscrap = document.querySelector('button#scrap')
+        if(chimscrap != null) chimscrap.click()
     }
     else {
         return;
