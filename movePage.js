@@ -1,4 +1,3 @@
-/* 목록에서 [다음], [이전] 가져오기 */
 var g_next_key   //다음 키 버튼
 var g_prev_key   //이전 키 버튼
 var g_keystop = 2000    //ms, 해당 ms동안 키 인식 안함
@@ -18,9 +17,12 @@ function pageDown() {
     })
 }
 
-function keywork_play() {
-    g_keywork = 1
-    console.log('keywork_play :' + g_keywork)
+//키 g_keystop 밀리초 만큼 정지
+function keyworkStop() {
+    g_keywork = 0
+    setTimeout(() => {
+        g_keywork = 1
+    }, g_keystop);
 }
 
 /*
@@ -55,74 +57,76 @@ function actionAlert(chim_btn, msg, type) {
 //키 입력 체크
 function keyCheck() {
     let keyValue = window.event.keyCode    //입력한 키 값
+    let keyChar = String.fromCharCode(keyValue)
+
+    //해당 버튼 클릭 시 g_keystop 밀리초만큼 기능 일시정지
+    switch(keyValue) {
+        case  9:    //Tab
+        case 16:    //L-Shift
+        case 17:    //L-Ctrl
+        case 18:    //L-Alt
+        case 20:    //CapsLock
+        case 21:    //R-Alt
+        case 25:    //R-Ctrl
+        case 91:    //L-Win
+        case 92:    //R-Win
+            keyworkStop()
+            break
+        default:
+            break
+    }
 
     if(g_keywork == 0) return
 
-    if(keyValue == 16 || keyValue == 17 || keyValue == 18) {
-        g_keywork = 0
-        setTimeout(() => {
-           keywork_play()
-        }, g_keystop);
-    }
+    switch(keyChar) {
+        //게시글 이동 관련
+        case 'A':   //이전 글
+            if(g_prev_key != null) g_prev_key.click()
+            break
+        case 'D':   //다음 글
+            if(g_next_key != null) g_next_key.click()
+            break
 
-    //게시글 이동 관련
-    //a키 => 이전 글
-    else if(keyValue == 65 && g_prev_key != null) {
-        g_prev_key.click()
-    }
-    //d키 => 다음 글
-    else if(keyValue == 68 && g_next_key != null) {
-        g_next_key.click()
-    }
+        //페이지 이동 관련
+        case 'W':   //페이지 업
+            setTimeout(() => pageUp(), 0);
+            setTimeout(() => pageUp(), g_scrollTime/2);
+            setTimeout(() => pageUp(), g_scrollTime);
+            break
+        case 'S':   //페이지 다운
+            setTimeout(() => pageDown(), 0);
+            setTimeout(() => pageDown(), g_scrollTime/2);
+            setTimeout(() => pageDown(), g_scrollTime);
+            break
 
-    //페이지 이동 관련
-    //w키 => 페이지 업
-    else if(keyValue == 87) {
-        setTimeout(() => pageUp(), 0);
-        setTimeout(() => pageUp(), g_scrollTime/2);
-        setTimeout(() => pageUp(), g_scrollTime);
-    }
-    //s키 => 페이지 다운
-    else if(keyValue == 83) {
-        setTimeout(() => pageDown(), 0);
-        setTimeout(() => pageDown(), g_scrollTime/2);
-        setTimeout(() => pageDown(), g_scrollTime);
-    }
+        case 'Z':   //게시글 제목 이동
+            let title = document.querySelector('div.titleContainer')
+            if(title != null) title.scrollIntoView()
+            break
+        case 'X':   //댓글 이동
+            let comment = document.querySelector('div.likeContainer')
+            if(comment != null) comment.scrollIntoView()
+            break
+        case 'C':   //글 목록 이동
+            let board = document.querySelector('h2.bottomBoardListHeader')
+            if(board != null) board.scrollIntoView()
+            break
 
-    //z키 => 게시글 제목 이동
-    else if(keyValue == 90) {
-        let title = document.querySelector('div.titleContainer')
-        if(title != null) title.scrollIntoView()
-    }
-    //x키 => 댓글창 이동, 침하하 컨테이너 이동
-    else if(keyValue == 88) {
-        //let comment = document.querySelector('div.commentsTitle')
-        let comment = document.querySelector('div.likeContainer')
-        if(comment != null) comment.scrollIntoView()
-    }
-    //c키 => 글 목록
-    else if(keyValue == 67) {
-        let board = document.querySelector('h2.bottomBoardListHeader')
-        if(board != null) board.scrollIntoView()
-    }
-
-    //r키 => 침하하
-    else if(keyValue == 82) {
-        let chimhaha = document.querySelector('button#like')
-        actionAlert(chimhaha, "침하하", 1)
-    }
-    //f키 => 침흑흑
-    else if(keyValue == 70) {
-        let chimhkhk = document.querySelector('button#disLike')
-        actionAlert(chimhkhk, "침흑흑", 0)
-    }
-    //q키 => 스크랩
-    else if(keyValue == 81) {
-        let chimscrap = document.querySelector('button#scrap')
-        actionAlert(chimscrap, "스크랩", 1)
-    }
-    else {
-        return;
+        //게시글 추천 관련
+        case 'R':   //침하하 클릭
+            let chimhaha = document.querySelector('button#like')
+            actionAlert(chimhaha, "침하하", 1)
+            break
+        case 'F':   //침흑흑 클릭
+            let chimhkhk = document.querySelector('button#disLike')
+            actionAlert(chimhkhk, "침흑흑", 0)
+            break
+        case 'Q':   //스크랩 클릭
+            let chimscrap = document.querySelector('button#scrap')
+            actionAlert(chimscrap, "스크랩", 1)
+            break
+        default:
+            break
     }
 }
 
