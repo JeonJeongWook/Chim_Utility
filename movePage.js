@@ -17,6 +17,37 @@ function pageDown() {
     })
 }
 
+/*
+    chim_btn : 침하하, 침흑흑, 스크랩 버튼
+    msg : 침하하 / 침흑흑 / 스크랩
+    type : 1 - 취소 시 빨간색
+           0 - 누를 시 빨간색
+*/
+function actionAlert(chim_btn, msg, type) {
+    let result = 0;
+    //침하하, 스크랩 버튼
+    if(type == 1) {
+        if(chim_btn.innerHTML.indexOf("취소") < 0) {
+            message = `정말 ${msg} 하시겠습니까?`
+        } else {
+            message = `⚠정말 ${msg} 취소 하시겠습니까❓⚠`
+        }
+    }
+    //침흑흑 버튼
+    else {
+        if(chim_btn.innerHTML.indexOf("취소") > 0) {
+            message = `정말 ${msg} 취소 하시겠습니까?`
+        } else {
+            message = `⚠정말 ${msg} 하시겠습니까❓⚠`
+        }
+    }
+
+    if(confirm(message) == true) {
+        chim_btn.click()
+    }
+
+}
+
 //키 입력 체크
 function keyCheck() {
     let keyValue = window.event.keyCode    //입력한 키 값
@@ -64,41 +95,17 @@ function keyCheck() {
     //r키 => 침하하
     else if(keyValue == 82) {
         let chimhaha = document.querySelector('button#like')
-        if(chimhaha != null) {
-            if(chimhaha.innerHTML.indexOf("취소") < 0) {
-                chimhaha.click()
-            } else {
-                if(confirm("정말 침하하 취소 하시겠습니까?")) {
-                    chimhaha.click()
-                }
-            }
-        }
+        actionAlert(chimhaha, "침하하", 1)
     }
     //f키 => 침흑흑
     else if(keyValue == 70) {
         let chimhkhk = document.querySelector('button#disLike')
-        if(chimhkhk != null) {
-            if(chimhkhk.innerHTML.indexOf("취소") > 0) {
-                chimhkhk.click()
-            } else {
-                if(confirm("정말 침흑흑 하시겠습니까?")) {
-                    chimhkhk.click()
-                }
-            }
-        }
+        actionAlert(chimhkhk, "침흑흑", 0)
     }
     //q키 => 스크랩
     else if(keyValue == 81) {
         let chimscrap = document.querySelector('button#scrap')
-        if(chimscrap != null) {
-            if(chimscrap.innerHTML.indexOf("취소") < 0) {
-                chimscrap.click()
-            } else {
-                if(confirm("정말 침하하 취소 하시겠습니까?")) {
-                    chimscrap.click()
-                }
-            }
-        }
+        actionAlert(chimscrap, "스크랩", 1)
     }
     else {
         return;
