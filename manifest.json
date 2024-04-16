@@ -1,8 +1,11 @@
 {
-	"name": "ChimTility",
+	"manifest_version": 3,
+	"name": "Chim_Utility",
 	"description": "침하하를 더 편하게 이용하고 싶어!",
 	"version": "1.0",
-	"manifest_version": 3,
+	"action": {
+		"default_icon" : ""
+	}
 	"content_scripts": [
 		{
 			"matches": ["https://chimhaha.net/*/*"],
