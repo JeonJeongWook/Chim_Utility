@@ -1,6 +1,7 @@
 /* 목록에서 [다음], [이전] 가져오기 */
 var g_next_key   //다음 키 버튼
 var g_prev_key   //이전 키 버튼
+var g_keystop = 2000    //ms, 해당 ms동안 키 인식 안함
 var g_keywork = 1    // 1-작동중, 0-정지  input, textarea 태그 일 경우 기능 정지
 var g_scrollTime = 50   //스크롤 시 한번에 움직이면 못쫓아가니 딜레이 주기(1000ms = 1s, 50 = 0.05s)
 
@@ -17,6 +18,11 @@ function pageDown() {
     })
 }
 
+function keywork_play() {
+    g_keywork = 1
+    console.log('keywork_play :' + g_keywork)
+}
+
 /*
     chim_btn : 침하하, 침흑흑, 스크랩 버튼
     msg : 침하하 / 침흑흑 / 스크랩
@@ -24,7 +30,6 @@ function pageDown() {
            0 - 누를 시 빨간색
 */
 function actionAlert(chim_btn, msg, type) {
-    let result = 0;
     //침하하, 스크랩 버튼
     if(type == 1) {
         if(chim_btn.innerHTML.indexOf("취소") < 0) {
@@ -45,15 +50,24 @@ function actionAlert(chim_btn, msg, type) {
     if(confirm(message) == true) {
         chim_btn.click()
     }
-
 }
 
 //키 입력 체크
 function keyCheck() {
     let keyValue = window.event.keyCode    //입력한 키 값
+
+    if(g_keywork == 0) return
+
+    if(keyValue == 16 || keyValue == 17 || keyValue == 18) {
+        g_keywork = 0
+        setTimeout(() => {
+           keywork_play()
+        }, g_keystop);
+    }
+
     //게시글 이동 관련
     //a키 => 이전 글
-    if(keyValue == 65 && g_prev_key != null) {
+    else if(keyValue == 65 && g_prev_key != null) {
         g_prev_key.click()
     }
     //d키 => 다음 글
@@ -113,9 +127,7 @@ function keyCheck() {
 }
 
 //키 누를때 keyCheck 함수 실행
-if(g_keywork == 1 ) {
-    top.document.onkeydown = keyCheck
-}
+top.document.onkeydown = keyCheck
 
 /***********************************
 ** url 변경 시 실행 **
