@@ -5,7 +5,12 @@
 	"manifest_version": 3,
 	"content_scripts": [
 		{
-			"matches": ["https://chimhaha.net/*"],
+			"matches": ["https://chimhaha.net/*/*"],
+			"exclude_matches": [
+				"https://chimhaha.net/*/new",
+				"https://chimhaha.net/mypage*",
+				"https://chimhaha.net/alarm*"
+			],
 			"js": ["movePage.js"]
 		}
 	]
