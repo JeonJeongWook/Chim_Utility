@@ -70,6 +70,7 @@ function keyCheck() {
         case 25:    //R-Ctrl
         case 91:    //L-Win
         case 92:    //R-Win
+        case 93:    //R-General Key
             keyworkStop()
             break
         default:
