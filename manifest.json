@@ -3,8 +3,11 @@
 	"name": "Chim_Utility",
 	"description": "침하하를 더 편하게 이용하고 싶어!",
 	"version": "1.0",
+	"icons": {
+		"128" : "img/128.png"
+	},
 	"action": {
-		"default_icon" : ""
+		"default_icon" : "img/128.png"
 	},
 	"content_scripts": [
 		{
