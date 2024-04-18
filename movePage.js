@@ -1,3 +1,7 @@
+/* todo
+ *  1. 게시글 바로이동 v누르면 글목록 리스트 앞에 번호 생겨서 v -> 숫자 -> v
+ *
+ */
 var g_next_key   //다음 키 버튼
 var g_prev_key   //이전 키 버튼
 var g_keystop = 2000    //ms, 해당 ms동안 키 인식 안함
@@ -122,7 +126,7 @@ function keyCheck() {
             let chimhkhk = document.querySelector('button#disLike')
             actionAlert(chimhkhk, "침흑흑", 0)
             break
-        case 'Q':   //스크랩 클릭
+        case 'T':   //스크랩 클릭
             let chimscrap = document.querySelector('button#scrap')
             actionAlert(chimscrap, "스크랩", 1)
             break
