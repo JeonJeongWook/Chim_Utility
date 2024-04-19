@@ -1,12 +1,24 @@
 /* todo
- *  1. 게시글 바로이동 v누르면 글목록 리스트 앞에 번호 생겨서 v -> 숫자 -> v
- *
+ *  1-1. 게시글 바로이동 v누르면 글목록 리스트 앞에 번호 생겨서 v -> 숫자 -> v
+        url - chimhaha.net/*_/[number]/*
+        sector - section#boardList a.item
+
+ *  1-2. 침하하 메인 페이지에서 인기글 바로가기 키
+ *      url - chimhaha.net
+ *      selector - section#boardList a.item
  */
 var g_next_key   //다음 키 버튼
 var g_prev_key   //이전 키 버튼
 var g_keystop = 2000    //ms, 해당 ms동안 키 인식 안함
 var g_keywork = 1    // 1-작동중, 0-정지  input, textarea 태그 일 경우 기능 정지
 var g_scrollTime = 50   //스크롤 시 한번에 움직이면 못쫓아가니 딜레이 주기(1000ms = 1s, 50 = 0.05s)
+
+var g_input_key
+var g_input_number = 0  //1:숫자 키 입력중.. / 0:종료
+var g_number_array = new Array()
+
+console.log('chim_util start')
+
 
 //페이지 업
 function pageUp() {
@@ -26,7 +38,7 @@ function keyworkStop() {
     g_keywork = 0
     setTimeout(() => {
         g_keywork = 1
-    }, g_keystop);
+    }, g_keystop)
 }
 
 /*
@@ -56,6 +68,14 @@ function actionAlert(chim_btn, msg, type) {
     if(confirm(message) == true) {
         chim_btn.click()
     }
+}
+
+function getNumberArray() {
+    let key = g_input_number
+    let array = g_number_array
+    g_input_number = ''
+    g_number_array = []
+    return array
 }
 
 //키 입력 체크
@@ -94,14 +114,14 @@ function keyCheck() {
 
         //페이지 이동 관련
         case 'W':   //페이지 업
-            setTimeout(() => pageUp(), 0);
-            setTimeout(() => pageUp(), g_scrollTime/2);
-            setTimeout(() => pageUp(), g_scrollTime);
+            setTimeout(() => pageUp(), 0)
+            setTimeout(() => pageUp(), g_scrollTime/2)
+            setTimeout(() => pageUp(), g_scrollTime)
             break
         case 'S':   //페이지 다운
-            setTimeout(() => pageDown(), 0);
-            setTimeout(() => pageDown(), g_scrollTime/2);
-            setTimeout(() => pageDown(), g_scrollTime);
+            setTimeout(() => pageDown(), 0)
+            setTimeout(() => pageDown(), g_scrollTime/2)
+            setTimeout(() => pageDown(), g_scrollTime)
             break
 
         case 'Z':   //게시글 제목 이동
@@ -129,6 +149,43 @@ function keyCheck() {
         case 'T':   //스크랩 클릭
             let chimscrap = document.querySelector('button#scrap')
             actionAlert(chimscrap, "스크랩", 1)
+            break
+
+        case 'V':   //게시글 이동
+            g_input_key = 'V'
+            g_input_number = g_input_number == 0 ? 1 : 0
+
+            //0으로 바뀌면 1일때 쌓은 문자열 실행
+            if(g_input_number == 0) {
+                let array = new Array()
+                array = getNumberArray()
+                let num = array.join('')-1
+
+                //아무키도 안눌렀을 경우
+                if(num == 0 || array.length <= 0) {
+                    break
+                } 
+
+                board_list[num].click()
+            }
+            break
+
+        //키보드 윗쪽 숫자
+        case '0':
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+            if(g_input_number == 1) {
+                g_number_array.push(keyChar)
+
+                console.log('숫자키 입력중..')
+            }
             break
         default:
             break
@@ -169,4 +226,31 @@ input_list.forEach((input) => {
     input.addEventListener('focusout', (event) => {
             g_keywork = 1
     })
+})
+
+
+/***********************************
+** url 변경 시 실행 **
+해당 게시글 목록이 있으면 앞에 번호 부여
+***********************************/
+var board_list = document.querySelectorAll("section#boardList a.item")
+var count = 0
+
+board_list.forEach(board => {
+    count++
+
+    let newDiv = document.createElement("div")
+    let newSpan = document.createElement("span")
+    let newText = document.createTextNode(count)
+
+    newDiv.style.display = 'flex'
+    newDiv.style.justifyContent = 'center'
+    newDiv.style.alignItems = 'center'
+
+    newSpan.style.marginRight = 5 +'px'
+    newSpan.style.lineHeight = 20 + 'px'
+    newSpan.appendChild(newText)
+    newDiv.appendChild(newSpan)
+
+    board.prepend(newDiv)
 })

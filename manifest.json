@@ -11,7 +11,10 @@
 	},
 	"content_scripts": [
 		{
-			"matches": ["https://chimhaha.net/*/*"],
+			"matches": [
+				"https://chimhaha.net/",
+				"https://chimhaha.net/*/*"
+			],
 			"exclude_matches": [
 				"https://chimhaha.net/*/new",
 				"https://chimhaha.net/mypage*",
