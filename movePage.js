@@ -81,6 +81,10 @@ function getNumberArray() {
 //키 입력 체크
 function keyCheck() {
     let keyValue = window.event.keyCode    //입력한 키 값
+    //넘버패드
+    if(keyValue >= 96 && keyValue <= 105) {
+        keyValue -= 48
+    }
     let keyChar = String.fromCharCode(keyValue)
 
     //해당 버튼 클릭 시 g_keystop 밀리초만큼 기능 일시정지
@@ -159,14 +163,18 @@ function keyCheck() {
             if(g_input_number == 0) {
                 let array = new Array()
                 array = getNumberArray()
-                let num = array.join('')-1
+                let num = array.join('')
 
                 //아무키도 안눌렀을 경우
                 if(num == 0 || array.length <= 0) {
                     break
                 } 
 
-                board_list[num].click()
+                //없는 숫자일 경우
+                if(num > board_list.length) {
+                    break
+                }
+                board_list[num-1].click()
             }
             break
 
@@ -183,8 +191,6 @@ function keyCheck() {
         case '9':
             if(g_input_number == 1) {
                 g_number_array.push(keyChar)
-
-                console.log('숫자키 입력중..')
             }
             break
         default:
