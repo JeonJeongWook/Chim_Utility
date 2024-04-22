@@ -1,12 +1,3 @@
-/* todo
- *  1-1. 게시글 바로이동 v누르면 글목록 리스트 앞에 번호 생겨서 v -> 숫자 -> v
-        url - chimhaha.net/*_/[number]/*
-        sector - section#boardList a.item
-
- *  1-2. 침하하 메인 페이지에서 인기글 바로가기 키
- *      url - chimhaha.net
- *      selector - section#boardList a.item
- */
 var g_next_key   //다음 키 버튼
 var g_prev_key   //이전 키 버튼
 var g_keystop = 2000    //ms, 해당 ms동안 키 인식 안함
@@ -163,8 +154,6 @@ function keyCheck() {
                 g_prev_page.click()
             } else if(g_prev_button != null) {
                 g_prev_button.click()
-            } else {
-                console.log('Q button error')
             }
             
             break
@@ -173,8 +162,6 @@ function keyCheck() {
                 g_next_page.click()
             } else if(g_next_button != null) {
                 g_next_button.click()
-            } else {
-                console.log('E button error')
             }
             break
 
@@ -293,12 +280,9 @@ var pagination = document.querySelectorAll('section.pagination div')
 
 //페이지네이션 클래스
 for(i=0; i<pagination.length; i++) {
-    console.log(`pagination : ${pagination[i]}`)
-
     //이전 버튼
     if(pagination[i].className == 'prev') {
         g_prev_button = pagination[i].getElementsByTagName('a')[0]
-        console.log(`prev ! : ${g_prev_button}`)
     }
 
     //페이지 번호
@@ -309,10 +293,7 @@ for(i=0; i<pagination.length; i++) {
         for(j=0; j<number_div.length; j++) {
             page_count++
 
-            console.log("in j for : " + number_div[j])
-
             if(number_div[j].className == 'selected') {
-                console.log('page_count : ' + page_count)
                 g_prev_page = pagination[j-1]
                 g_next_page = pagination[j+1]
                 break
@@ -323,9 +304,7 @@ for(i=0; i<pagination.length; i++) {
     //다음 버튼
     if(pagination[i].className == 'next') {
         g_next_button = pagination[i].getElementsByTagName('a')[0]
-        console.log(`next ! : ${g_next_button}`)
     }
 }
-console.log(`g_prev_page : ${g_prev_page} / g_next_page : ${g_next_page}`)
 
 console.log('chim_util ready')
