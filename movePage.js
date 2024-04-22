@@ -17,8 +17,11 @@ var g_input_key
 var g_input_number = 0  //1:숫자 키 입력중.. / 0:종료
 var g_number_array = new Array()
 
-console.log('chim_util start')
-
+//페이지네이션
+var g_prev_button   //이전 버튼
+var g_prev_page     //이전 페이지
+var g_next_page     //다음 페이지
+var g_next_button   //다음 버튼
 
 //페이지 업
 function pageUp() {
@@ -155,6 +158,26 @@ function keyCheck() {
             actionAlert(chimscrap, "스크랩", 1)
             break
 
+        case 'Q':   //이전 페이지
+            if(g_prev_page != null) {
+                g_prev_page.click()
+            } else if(g_prev_button != null) {
+                g_prev_button.click()
+            } else {
+                console.log('Q button error')
+            }
+            
+            break
+        case 'E':   //다음 페이지
+            if(g_next_page != null) {
+                g_next_page.click()
+            } else if(g_next_button != null) {
+                g_next_button.click()
+            } else {
+                console.log('E button error')
+            }
+            break
+
         case 'V':   //게시글 이동
             g_input_key = 'V'
             g_input_number = g_input_number == 0 ? 1 : 0
@@ -260,3 +283,49 @@ board_list.forEach(board => {
 
     board.prepend(newDiv)
 })
+
+
+/***********************************
+** url 변경 시 실행 **
+페이지네이션
+***********************************/
+var pagination = document.querySelectorAll('section.pagination div')
+
+//페이지네이션 클래스
+for(i=0; i<pagination.length; i++) {
+    console.log(`pagination : ${pagination[i]}`)
+
+    //이전 버튼
+    if(pagination[i].className == 'prev') {
+        g_prev_button = pagination[i].getElementsByTagName('a')[0]
+        console.log(`prev ! : ${g_prev_button}`)
+    }
+
+    //페이지 번호
+    if(pagination[i].className == 'number') {
+        var number_div = pagination[i].getElementsByTagName('a')
+        var page_count = 0
+
+        for(j=0; j<number_div.length; j++) {
+            page_count++
+
+            console.log("in j for : " + number_div[j])
+
+            if(number_div[j].className == 'selected') {
+                console.log('page_count : ' + page_count)
+                g_prev_page = pagination[j-1]
+                g_next_page = pagination[j+1]
+                break
+            }
+        }
+    }
+
+    //다음 버튼
+    if(pagination[i].className == 'next') {
+        g_next_button = pagination[i].getElementsByTagName('a')[0]
+        console.log(`next ! : ${g_next_button}`)
+    }
+}
+console.log(`g_prev_page : ${g_prev_page} / g_next_page : ${g_next_page}`)
+
+console.log('chim_util ready')

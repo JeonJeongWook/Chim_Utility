@@ -13,12 +13,15 @@
 		{
 			"matches": [
 				"https://chimhaha.net/",
-				"https://chimhaha.net/*/*"
+				"https://chimhaha.net/*"
 			],
 			"exclude_matches": [
 				"https://chimhaha.net/*/new",
-				"https://chimhaha.net/mypage*",
-				"https://chimhaha.net/alarm*"
+				"https://chimhaha.net/*/edit",
+				"https://chimhaha.net/mypage/*",
+				"https://chimhaha.net/alarm",
+				"https://chimhaha.net/login",
+				"https://chimhaha.net/join"
 			],
 			"js": ["movePage.js"]
 		}
