@@ -150,6 +150,7 @@ function keyCheck() {
             break
 
         case 'Q':   //이전 페이지
+            console.log(`press Q / ${g_prev_page}`)
             if(g_prev_page != null) {
                 g_prev_page.click()
             } else if(g_prev_button != null) {
@@ -158,6 +159,7 @@ function keyCheck() {
             
             break
         case 'E':   //다음 페이지
+            console.log(`press E / ${g_next_page}`)
             if(g_next_page != null) {
                 g_next_page.click()
             } else if(g_next_button != null) {
@@ -283,19 +285,28 @@ for(i=0; i<pagination.length; i++) {
     //이전 버튼
     if(pagination[i].className == 'prev') {
         g_prev_button = pagination[i].getElementsByTagName('a')[0]
+        console.log(`g_prev_button ${g_prev_button}`)
     }
 
+    //todo 손봐야 함
     //페이지 번호
     if(pagination[i].className == 'number') {
         var number_div = pagination[i].getElementsByTagName('a')
-        var page_count = 0
 
         for(j=0; j<number_div.length; j++) {
-            page_count++
+            console.log('in for j ' + j )
 
             if(number_div[j].className == 'selected') {
-                g_prev_page = pagination[j-1]
-                g_next_page = pagination[j+1]
+                if(j >= 0) {
+                    g_prev_page = pagination[j-1]
+                    console.log(`g_prev_page ${g_prev_page}`)
+                }
+
+                if(j <= 4) {
+                    g_next_page = pagination[j+1]
+                    console.log(`g_next_page ${g_next_page}`)
+                }
+
                 break
             }
         }
@@ -304,6 +315,7 @@ for(i=0; i<pagination.length; i++) {
     //다음 버튼
     if(pagination[i].className == 'next') {
         g_next_button = pagination[i].getElementsByTagName('a')[0]
+        console.log(`g_next_button ${g_next_button}`)
     }
 }
 
