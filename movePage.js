@@ -35,6 +35,23 @@ function keyworkStop() {
     }, g_keystop)
 }
 
+function comment_click() {
+    alert('coment_click event do')
+    var comment_list = document.querySelectorAll("div.contentContainer textarea#etcText")
+
+    comment_list.forEach((input) => {
+        console.log('comment_list click! ')
+        input.addEventListener('focusin', (event) => {
+                g_keywork = 0
+        })
+        input.addEventListener('focusout', (event) => {
+                g_keywork = 1
+        })
+    })
+console.log("g_keywork", g_keywork)
+}
+
+
 /*
     chim_btn : 침하하, 침흑흑, 스크랩 버튼
     msg : 침하하 / 침흑흑 / 스크랩
@@ -244,6 +261,11 @@ input_list.forEach((input) => {
     })
 })
 
+var comment_btn_list = document.querySelectorAll("button#commentReply")
+comment_btn_list.forEach(input => {
+    console.log('comment_btn_list : ' + input)
+    input.addEventListener("click", comment_click)
+})
 
 /***********************************
 ** url 변경 시 실행 **
