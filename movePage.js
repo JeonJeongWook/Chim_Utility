@@ -36,11 +36,8 @@ function keyworkStop() {
 }
 
 function comment_click() {
-    alert('coment_click event do')
-    var comment_list = document.querySelectorAll("div.contentContainer textarea#etcText")
-
-    comment_list.forEach((input) => {
-        console.log('comment_list click! ')
+    var comment_area_list = document.querySelectorAll("div#commentEtc.commentContainer")
+    comment_area_list.forEach(input => {
         input.addEventListener('focusin', (event) => {
                 g_keywork = 0
         })
@@ -48,7 +45,6 @@ function comment_click() {
                 g_keywork = 1
         })
     })
-console.log("g_keywork", g_keywork)
 }
 
 
@@ -263,9 +259,9 @@ input_list.forEach((input) => {
 
 var comment_btn_list = document.querySelectorAll("button#commentReply")
 comment_btn_list.forEach(input => {
-    console.log('comment_btn_list : ' + input)
     input.addEventListener("click", comment_click)
 })
+
 
 /***********************************
 ** url 변경 시 실행 **
