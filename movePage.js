@@ -36,6 +36,9 @@ function keyworkStop() {
 }
 
 function comment_click() {
+    var chimhaha_list = div_comments.querySelectorAll('div.commentLike > button#commentLike')
+    var comment_btn_list = div_comments.querySelectorAll('button#commentReply')
+
     var comment_area_list = document.querySelectorAll("div#commentEtc.commentContainer")
     comment_area_list.forEach(input => {
         input.addEventListener('focusin', (event) => {
@@ -45,6 +48,10 @@ function comment_click() {
                 g_keywork = 1
         })
     })
+}
+
+function comment_set() {
+    console.log('comment_set')
 }
 
 
@@ -257,10 +264,22 @@ input_list.forEach((input) => {
     })
 })
 
-var comment_btn_list = document.querySelectorAll("button#commentReply")
+
+
+// 댓글 div
+var div_comments = document.querySelector('div#comments.comments')
+console.log(`div_comments ${div_comments}`)
+
+/*
+// 침하하 버튼
+var comment_chimhaha_list = div_comments.querySelectorAll('div.commentLike > button#commentLike')
+
+// 댓글 버튼
+var comment_btn_list = div_comments.querySelectorAll("button#commentReply")
 comment_btn_list.forEach(input => {
     input.addEventListener("click", comment_click)
 })
+*/
 
 
 /***********************************
