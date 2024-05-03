@@ -36,9 +36,6 @@ function keyworkStop() {
 }
 
 function comment_click() {
-    var chimhaha_list = div_comments.querySelectorAll('div.commentLike > button#commentLike')
-    var comment_btn_list = div_comments.querySelectorAll('button#commentReply')
-
     var comment_area_list = document.querySelectorAll("div#commentEtc.commentContainer")
     comment_area_list.forEach(input => {
         input.addEventListener('focusin', (event) => {
@@ -50,8 +47,20 @@ function comment_click() {
     })
 }
 
+//댓글창 변경 감지(침하하 버튼 클릭시 div 재생성)
 function comment_set() {
-    console.log('comment_set')
+    console.log('comment_set start')
+    var textarea = document.querySelectorAll('textarea[name="reply"]#etcText')
+    textarea.forEach((textarea) => {
+        console.log(textarea.getElementsByTagName)
+        //textarea.addEventListener('click', comment_click)
+        textarea.addEventListener('focusin', (event) => {
+                g_keywork = 0
+        })
+        textarea.addEventListener('focusout', (event) => {
+                g_keywork = 1
+        })
+    })
 }
 
 
@@ -266,21 +275,47 @@ input_list.forEach((input) => {
 
 
 
-// 댓글 div
-var div_comments = document.querySelector('div#comments.comments')
-console.log(`div_comments ${div_comments}`)
+// 댓글 div 변경 감지
+let target1 = document.querySelector('div#comments.comments')
+
+//침하하 버튼 누르면 생기는 대댓글
+let target2 = document.querySelectorAll('div.commentContainer#commentEtc')
+
+let observer = new MutationObserver((mutations) => {
+    //노드 변경 감지 작업
+    console.log('변경' + mutations)
+
+    /*
+    var textarea = document.querySelectorAll('textarea[name="reply"]#etcText')
+    textarea.forEach((textarea) => {
+        //textarea.addEventListener('click', comment_click)
+        textarea.addEventListener('focusin', (event) => {
+                g_keywork = 0
+        })
+        textarea.addEventListener('focusout', (event) => {
+                g_keywork = 1
+        })
+    })
+    */
+    comment_set()
+})
+let option = {
+    attributes: true,
+    childList: true,
+    characterData: true
+}
+if(target1 != null) {
+    observer.observe(target1, option)
+}
+comment_set()
 
 /*
-// 침하하 버튼
-var comment_chimhaha_list = div_comments.querySelectorAll('div.commentLike > button#commentLike')
-
-// 댓글 버튼
-var comment_btn_list = div_comments.querySelectorAll("button#commentReply")
-comment_btn_list.forEach(input => {
-    input.addEventListener("click", comment_click)
-})
+if(target2.length > 0) {
+    target2.forEach((target) => {
+        observer.observe(target, option)
+    })
+}
 */
-
 
 /***********************************
 ** url 변경 시 실행 **
