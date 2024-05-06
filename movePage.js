@@ -49,11 +49,9 @@ function comment_click() {
 
 //댓글창 변경 감지(침하하 버튼 클릭시 div 재생성)
 function comment_set() {
-    console.log('comment_set start')
-    var textarea = document.querySelectorAll('textarea[name="reply"]#etcText')
+    var textarea = document.querySelectorAll('textarea[name="reply"]')
     textarea.forEach((textarea) => {
-        console.log(textarea.getElementsByTagName)
-        //textarea.addEventListener('click', comment_click)
+        console.log(textarea.placeholder)
         textarea.addEventListener('focusin', (event) => {
                 g_keywork = 0
         })
@@ -278,15 +276,13 @@ input_list.forEach((input) => {
 // 댓글 div 변경 감지
 let target1 = document.querySelector('div#comments.comments')
 
-//침하하 버튼 누르면 생기는 대댓글
-let target2 = document.querySelectorAll('div.commentContainer#commentEtc')
-
 let observer = new MutationObserver((mutations) => {
     //노드 변경 감지 작업
-    console.log('변경' + mutations)
+    //console.log('변경 comment_set() 실행' + mutations)
+    alert('변경 comment_set() 실행' + mutations)
 
-    /*
-    var textarea = document.querySelectorAll('textarea[name="reply"]#etcText')
+    var textarea = document.querySelectorAll('textarea')
+    //var textarea = document.querySelectorAll('textarea[name="reply"]#etcText')
     textarea.forEach((textarea) => {
         //textarea.addEventListener('click', comment_click)
         textarea.addEventListener('focusin', (event) => {
@@ -296,8 +292,7 @@ let observer = new MutationObserver((mutations) => {
                 g_keywork = 1
         })
     })
-    */
-    comment_set()
+    //comment_set()
 })
 let option = {
     attributes: true,
@@ -307,6 +302,14 @@ let option = {
 if(target1 != null) {
     observer.observe(target1, option)
 }
+//todo
+/*
+* 댓글 버튼 누를시 textarea 찾는 액션
+* dom 변경시 액션
+*/
+
+//침하하 버튼 누르면 생기는 대댓글
+let target2 = document.querySelectorAll('div.commentContainer#commentEtc')
 comment_set()
 
 /*
