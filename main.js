@@ -35,10 +35,6 @@ function keyworkStop() {
     }, g_keystop)
 }
 
-function comment_init(comment_div) {
-    //let a = comment_div.querySelectorAll('div#commen')
-}
-
 function comment_click() {
     var comment_area_list = document.querySelectorAll("div#commentEtc.commentContainer")
     comment_area_list.forEach(input => {
@@ -50,20 +46,6 @@ function comment_click() {
         })
     })
 }
-
-//댓글창 변경 감지(침하하 버튼 클릭시 div 재생성)
-function comment_change() {
-    var textarea = document.querySelectorAll('textarea[name="reply"]')
-    textarea.forEach((textarea) => {
-        textarea.addEventListener('focusin', (event) => {
-                g_keywork = 0
-        })
-        textarea.addEventListener('focusout', (event) => {
-                g_keywork = 1
-        })
-    })
-}
-
 
 /*
     chim_btn : 침하하, 침흑흑, 스크랩 버튼
@@ -305,19 +287,14 @@ let option = {
 
 if(comment_div != null) {
     observer.observe(comment_div, option)
+
+    //댓글 버튼에 이벤트 등록
+    var comment_btn = comment_div.querySelectorAll('button#commentReply')
+    comment_btn.forEach((comment_btn) => {
+        comment_btn.addEventListener('click', comment_click)
+    })
 }
 
-//todo
-/*
-* 댓글 버튼 누를시 textarea 찾는 액션
-* dom 변경시 액션
-*/
-
-//댓글 버튼에 이벤트 등록
-var comment_btn = comment_div.querySelectorAll('button#commentReply')
-comment_btn.forEach((comment_btn) => {
-    comment_btn.addEventListener('click', comment_click)
-})
 
 /***********************************
 ** url 변경 시 실행 **
