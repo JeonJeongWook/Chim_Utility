@@ -2,12 +2,15 @@
 	"manifest_version": 3,
 	"name": "Chim_Utility",
 	"description": "침하하를 더 편하게 이용하고 싶어!",
-	"version": "2.0",
+	"version": "1.2.0",
+	"permissions" : [
+		"activeTab"
+	],
 	"icons": {
 		"128" : "img/chimchak.png"
 	},
 	"action": {
-		"default_popup": "popup.html",
+		"default_popup": "popup/popup.html",
 		"default_icon" : "img/chimchak.png"
 	},
 	"content_scripts": [
@@ -24,7 +27,9 @@
 				"https://chimhaha.net/login",
 				"https://chimhaha.net/join"
 			],
-			"js": ["main.js"]
+			"js": [
+				"main.js"
+			]
 		}
 	],
 	"background": {

@@ -6,6 +6,10 @@
 
 2. 프로그램 설치방법
 
+    <details>
+
+    <summary>자세히 보기</summary>
+
     1. https://github.com/JeonJeongWook/Chim_Utility 접속 후 순서대로 클릭
     ![설치_1](./img/readme/install_1.png)
 
@@ -20,6 +24,8 @@
 
     4. 해당 그림처럼 침착맨 로고가 나오면 설치 성공!
     ![설치_3](./img/readme/install_3.png)
+
+    </details>
 
 <hr>
 
