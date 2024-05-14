@@ -3,9 +3,6 @@
 	"name": "Chim_Utility",
 	"description": "침하하를 더 편하게 이용하고 싶어!",
 	"version": "1.2.0",
-	"permissions" : [
-		"activeTab"
-	],
 	"icons": {
 		"128" : "img/chimchak.png"
 	},
@@ -31,9 +28,5 @@
 				"main.js"
 			]
 		}
-	],
-	"background": {
-		"service_worker": "background.js",
-		"type": "module"
-	}
+	]
 }
