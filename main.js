@@ -121,7 +121,6 @@ function keyCheck() {
         case 39:    //→ right arrow , 다음 글
             if(g_next_key != null) g_next_key.click()
             break
-
         default:
             break
     }
