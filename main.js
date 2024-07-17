@@ -107,6 +107,15 @@ function keyCheck() {
         case 93:    //R-General Key
             keyworkStop()
             break
+
+        //게시글 이동 관련
+        case 37:    //← left arrow  , 이전 글
+            if(g_prev_key != null) g_prev_key.click()
+            break
+        case 39:    //→ right arrow , 다음 글
+            if(g_next_key != null) g_next_key.click()
+            break
+
         default:
             break
     }
