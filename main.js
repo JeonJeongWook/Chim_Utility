@@ -93,6 +93,12 @@ function keyCheck() {
     }
     let keyChar = String.fromCharCode(keyValue)
 
+    window.addEventListener("keydown", function(e) {
+        if([37, 39].indexOf(e.keyCode) > -1) {
+            e.preventDefault();
+        }
+    }, false)
+
     //해당 버튼 클릭 시 g_keystop 밀리초만큼 기능 일시정지
     switch(keyValue) {
         case  9:    //Tab
