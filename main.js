@@ -1,18 +1,18 @@
-var g_next_key   //다음 키 버튼
-var g_prev_key   //이전 키 버튼
-var g_keystop = 2000    //ms, 해당 ms동안 키 인식 안함
-var g_keywork = 1    // 1-작동중, 0-정지  input, textarea 태그 일 경우 기능 정지
-var g_scrollTime = 50   //스크롤 시 한번에 움직이면 못쫓아가니 딜레이 주기(1000ms = 1s, 50 = 0.05s)
+let g_next_key   //다음 키 버튼
+let g_prev_key   //이전 키 버튼
+let g_keystop = 2000    //ms, 해당 ms동안 키 인식 안함
+let g_keywork = true    // 1-작동중, 0-정지  input, textarea 태그 일 경우 기능 정지
+let g_scrollTime = 50   //스크롤 시 한번에 움직이면 못쫓아가니 딜레이 주기(1000ms = 1s, 50 = 0.05s)
 
-var g_input_key
-var g_input_number = 0  //1:숫자 키 입력중.. / 0:종료
-var g_number_array = new Array()
+let g_input_key
+let g_input_number = 0  //1:숫자 키 입력중.. / 0:종료
+let g_number_array = new Array()
 
 //페이지네이션
-var g_prev_button   //이전 버튼
-var g_prev_page     //이전 페이지
-var g_next_page     //다음 페이지
-var g_next_button   //다음 버튼
+let g_prev_button   //이전 버튼
+let g_prev_page     //이전 페이지
+let g_next_page     //다음 페이지
+let g_next_button   //다음 버튼
 
 //페이지 업
 function pageUp() {
@@ -29,20 +29,20 @@ function pageDown() {
 
 //키 g_keystop 밀리초 만큼 정지
 function keyworkStop() {
-    g_keywork = 0
+    g_keywork = false
     setTimeout(() => {
-        g_keywork = 1
+        g_keywork = true
     }, g_keystop)
 }
 
 function comment_click() {
-    var comment_area_list = document.querySelectorAll("div#commentEtc.commentContainer")
+    let comment_area_list = document.querySelectorAll("div#commentEtc.commentContainer")
     comment_area_list.forEach(input => {
         input.addEventListener('focusin', (event) => {
-                g_keywork = 0
+                g_keywork = false
         })
         input.addEventListener('focusout', (event) => {
-                g_keywork = 1
+                g_keywork = true
         })
     })
 }
@@ -125,7 +125,7 @@ function keyCheck() {
             break
     }
 
-    if(g_keywork == 0) return
+    if(g_keywork == false) return
 
     switch(keyChar) {
         //게시글 이동 관련
@@ -234,6 +234,8 @@ function keyCheck() {
     }
 }
 
+
+//main function!!
 //키 누를때 keyCheck 함수 실행
 top.document.onkeydown = keyCheck
 
@@ -241,16 +243,17 @@ top.document.onkeydown = keyCheck
 ** url 변경 시 실행 **
 설명: 이전, 다음 버튼 오브젝트 찾은 후 변수에 저장
 ***********************************/
-var item_btn_list = document.querySelectorAll("div.listAndEdit div.button a")
-item_btn_list.forEach((item_btn_list) => {
-    let inHTML = item_btn_list.innerHTML
+//let item_btn_list = document.querySelectorAll("div.listAndEdit div.button a")
+let item_btn_list = document.querySelectorAll("#article > div.item > div:nth-child(10) > div.left > div > a")
+item_btn_list.forEach((element) => {
+    let inHTML = element.innerHTML
 
     if(g_next_key != null && g_prev_key!= null) {
         return
     }else if(inHTML.indexOf("다음") != -1) {
-        g_next_key = item_btn_list
-    } else if(inHTML.indexOf("이전") != -1) {
-        g_prev_key = item_btn_list
+        g_next_key = element
+    }else if(inHTML.indexOf("이전") != -1) {
+        g_prev_key = element
     }
 })
 
@@ -260,20 +263,20 @@ type=text인 input Tag, textarea Tag에 focus 이벤트 등록
 focus in  = 단축키 기능 OFF
 focus out = 단축키 기능 ON
 ***********************************/
-var input_list = document.querySelectorAll("input[type='text'], textarea")
+let input_list = document.querySelectorAll("input[type='text'], textarea")
 input_list.forEach((input) => {
     input.addEventListener('focusin', (event) => {
-            g_keywork = 0
+            g_keywork = false
     })
     input.addEventListener('focusout', (event) => {
-            g_keywork = 1
+            g_keywork = true
     })
 })
 
 
 
 // 댓글 div 변경 감지
-var comment_div = document.querySelector('div#comments.comments')
+let comment_div = document.querySelector('div#comments.comments')
 
 let observer = new MutationObserver((mutations) => {
     //노드 변경 감지 작업
@@ -283,13 +286,13 @@ let observer = new MutationObserver((mutations) => {
     })
 
     let textarea = comment_div.querySelectorAll('textarea')
-    //var textarea = document.querySelectorAll('textarea[name="reply"]#etcText')
+    //let textarea = document.querySelectorAll('textarea[name="reply"]#etcText')
     textarea.forEach((textarea) => {
         textarea.addEventListener('focusin', (event) => {
-                g_keywork = 0
+                g_keywork = false
         })
         textarea.addEventListener('focusout', (event) => {
-                g_keywork = 1
+                g_keywork = true
         })
     })
 })
@@ -303,7 +306,7 @@ if(comment_div != null) {
     observer.observe(comment_div, option)
 
     //댓글 버튼에 이벤트 등록
-    var comment_btn = comment_div.querySelectorAll('button#commentReply')
+    let comment_btn = comment_div.querySelectorAll('button#commentReply')
     comment_btn.forEach((comment_btn) => {
         comment_btn.addEventListener('click', comment_click)
     })
@@ -314,8 +317,8 @@ if(comment_div != null) {
 ** url 변경 시 실행 **
 해당 게시글 목록이 있으면 앞에 번호 부여
 ***********************************/
-var board_list = document.querySelectorAll("section#boardList a.item")
-var count = 0
+let board_list = document.querySelectorAll("section#boardList a.item")
+let count = 0
 
 board_list.forEach(board => {
     count++
@@ -341,7 +344,7 @@ board_list.forEach(board => {
 ** url 변경 시 실행 **
 페이지네이션
 ***********************************/
-var pagination = document.querySelectorAll('section.pagination div')
+let pagination = document.querySelectorAll('section.pagination div')
 
 //페이지네이션 클래스
 for(i=0; i<pagination.length; i++) {
@@ -353,7 +356,7 @@ for(i=0; i<pagination.length; i++) {
     //todo 손봐야 함
     //페이지 번호
     if(pagination[i].className == 'number') {
-        var number_div = pagination[i].getElementsByTagName('a')
+        let number_div = pagination[i].getElementsByTagName('a')
 
         for(j=0; j<number_div.length; j++) {
 
@@ -377,4 +380,4 @@ for(i=0; i<pagination.length; i++) {
     }
 }
 
-console.log('chim_util ready')
+console.log("chimhaha ready")
