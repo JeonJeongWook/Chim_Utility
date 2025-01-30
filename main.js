@@ -84,6 +84,13 @@ function getNumberArray() {
     return array
 }
 
+function popupInit() {
+    let popupChimhaha = document.createElement("div")
+    popupChimhaha.id = "popupChimhaha"
+    document.body.appendChild(popupChimhaha);
+
+}
+
 //키 입력 체크
 function keyCheck() {
     let keyValue = window.event.keyCode    //입력한 키 값
@@ -243,7 +250,6 @@ top.document.onkeydown = keyCheck
 ** url 변경 시 실행 **
 설명: 이전, 다음 버튼 오브젝트 찾은 후 변수에 저장
 ***********************************/
-//let item_btn_list = document.querySelectorAll("div.listAndEdit div.button a")
 let item_btn_list = document.querySelectorAll("#article > div.item > div > div.left > div > a")
 item_btn_list.forEach((element) => {
     let inHTML = element.innerHTML
@@ -286,7 +292,6 @@ let observer = new MutationObserver((mutations) => {
     })
 
     let textarea = comment_div.querySelectorAll('textarea')
-    //let textarea = document.querySelectorAll('textarea[name="reply"]#etcText')
     textarea.forEach((textarea) => {
         textarea.addEventListener('focusin', (event) => {
                 g_keywork = false
