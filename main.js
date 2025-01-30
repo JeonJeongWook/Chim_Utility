@@ -47,12 +47,12 @@ function comment_click() {
     })
 }
 
-/*
+/****************************************
     chim_btn : 침하하, 침흑흑, 스크랩 버튼
     msg : 침하하 / 침흑흑 / 스크랩
     type : 1 - 취소 시 빨간색
            0 - 누를 시 빨간색
-*/
+****************************************/
 function actionAlert(chim_btn, msg, type) {
     //침하하, 스크랩 버튼
     if(type == 1) {
@@ -244,7 +244,7 @@ top.document.onkeydown = keyCheck
 설명: 이전, 다음 버튼 오브젝트 찾은 후 변수에 저장
 ***********************************/
 //let item_btn_list = document.querySelectorAll("div.listAndEdit div.button a")
-let item_btn_list = document.querySelectorAll("#article > div.item > div:nth-child(10) > div.left > div > a")
+let item_btn_list = document.querySelectorAll("#article > div.item > div > div.left > div > a")
 item_btn_list.forEach((element) => {
     let inHTML = element.innerHTML
 
@@ -380,4 +380,4 @@ for(i=0; i<pagination.length; i++) {
     }
 }
 
-console.log("chimhaha ready")
+console.log("chimhaha v2 ready")
